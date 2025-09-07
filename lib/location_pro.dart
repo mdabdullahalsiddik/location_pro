@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -7,8 +6,38 @@ import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
+/// Location Pro library for Flutter.
+///
+/// Provides **real-time location tracking** and **reverse geocoding** using
+/// OpenStreetMap Nominatim API.
+/// Supports Android, iOS, Web, and Desktop.
+// library location_pro;
+
+/// A class representing a geographic coordinate with [latitude] and [longitude].
+class LatLng {
+  /// Latitude in decimal degrees.
+  final double latitude;
+
+  /// Longitude in decimal degrees.
+  final double longitude;
+
+  /// Creates a new [LatLng] object with given [latitude] and [longitude].
+  LatLng(this.latitude, this.longitude);
+
+  @override
+  String toString() => 'LatLng($latitude, $longitude)';
+}
+
+/// Service for fetching the current location and resolving human-readable
+/// addresses from latitude/longitude coordinates.
+///
+/// Supports live GPS tracking on mobile and periodic location updates
+/// on web/desktop. Can also fetch addresses in multiple languages.
 class LocationPro {
+  /// Current location as [LatLng]. Null if not fetched yet.
   final ValueNotifier<LatLng?> currentLocation = ValueNotifier<LatLng?>(null);
+
+  /// Human-readable address for the current location.
   final ValueNotifier<String> placeName = ValueNotifier<String>("");
 
   StreamSubscription<Position>? _positionStream;
@@ -17,10 +46,20 @@ class LocationPro {
   /// Address language code according to OpenStreetMap Nominatim (default: 'en')
   String language;
 
+  /// Creates a [LocationPro] service instance.
+  ///
+  /// Set [language] for default address language.
+  /// If [autoStart] is true, tracking will start automatically.
   LocationPro({this.language = 'en', bool autoStart = false}) {
     if (autoStart) startTracking();
   }
 
+  /// Starts tracking location.
+  ///
+  /// On mobile: uses live GPS.
+  /// On web/desktop: uses periodic updates.
+  ///
+  /// Optionally provide [latLng] to track a fixed location without live GPS.
   void startTracking([LatLng? latLng]) {
     _stopInternalTimers();
 
@@ -47,6 +86,7 @@ class LocationPro {
     }
   }
 
+  /// Stops tracking location.
   void stopTracking() {
     _stopInternalTimers();
   }
@@ -62,6 +102,7 @@ class LocationPro {
       defaultTargetPlatform == TargetPlatform.android ||
       defaultTargetPlatform == TargetPlatform.iOS;
 
+  /// Fetches the current location once and updates [currentLocation] and [placeName].
   Future<void> fetchCurrentLocation() async {
     try {
       final Position position = await _determinePosition();
@@ -76,6 +117,9 @@ class LocationPro {
     }
   }
 
+  /// Fetches the address for given coordinates [lat], [lng].
+  ///
+  /// Uses [language] for multi-language support.
   Future<void> _getPlaceName(double lat, double lng) async {
     try {
       final url =
@@ -113,18 +157,10 @@ class LocationPro {
     return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   }
 
+  /// Disposes timers and ValueNotifiers.
   void dispose() {
     _stopInternalTimers();
     currentLocation.dispose();
     placeName.dispose();
   }
 }
-
-class LatLng {
-  final double latitude;
-  final double longitude;
-  LatLng(this.latitude, this.longitude);
-  @override
-  String toString() => 'LatLng($latitude, $longitude)';
-}
-
