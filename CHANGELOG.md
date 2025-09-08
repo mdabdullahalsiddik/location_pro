@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2025-09-08
+### Added
+- Documented Update
+
 ## [1.0.1] - 2025-09-07
 ### Added
 - Added dartdoc comments to all public API elements for better documentation.

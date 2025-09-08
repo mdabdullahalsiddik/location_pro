@@ -1,9 +1,9 @@
+
 # Location Pro 📍
 
-A **Flutter service** for **real-time location tracking** with **reverse geocoding (address lookup)** using **OpenStreetMap Nominatim API**.  
-Supports **Android, iOS, Web, and Desktop**.  
+A Flutter service for real-time location tracking with real-time address tracking.
 
-It also supports **direct LatLng input** for fetching addresses without live GPS tracking, and you can fetch addresses in **any language**.
+It also supports direct LatLng input, allowing you to fetch addresses without live GPS, and provides multi-language address support for English, Bangla, Japanese, Chinese, and more.
 
 ---
 
@@ -14,20 +14,20 @@ It also supports **direct LatLng input** for fetching addresses without live GPS
 * 🗺️ Reverse geocoding with **Nominatim API**
 * 🔔 Exposes current **LatLng** & **address** as `ValueNotifier`
 * 📍 Supports **direct LatLng input**: `startTracking(LatLng)`
-* 🌐 Supports **multi-language address** (English, Bangla, Japanese, Chinese, etc.)
-* 📱 Cross-platform support (Android, iOS, Web, Desktop)
+* 🌐 Multi-language address support (English, Bangla, Japanese, Chinese, etc.)
+* 📱 Cross-platform (Android, iOS, Web, Desktop)
 * 🚦 Automatic **permission handling**
 
 ---
 
 ## 📦 Installation
 
-Add the package to your pubspec.yaml:
+Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  location_pro: update the version number
-````
+  location_pro: ^1.0.0
+```
 
 Then run:
 
@@ -45,12 +45,12 @@ import 'package:location_pro/location_pro.dart';
 
 ## 🛠️ Usage
 
-### **Initialize & Start Tracking**
+### Initialize & Start Tracking
 
 ```dart
-final locationService = LocationService();
+final locationService = LocationPro();
 
-// Start tracking (live GPS)
+// Start live GPS tracking
 locationService.startTracking();
 
 // Optional: Track a specific LatLng without live GPS
@@ -69,7 +69,7 @@ locationService.placeName.addListener(() {
 
 ---
 
-### **Fetch Address in Specific Language**
+### Fetch Address in Specific Language
 
 ```dart
 // Example: Bangla
@@ -86,7 +86,7 @@ await locationService.getPlaceName(31.2304, 121.4737, langCode: 'zh-CN');
 
 ---
 
-### **Stop Tracking**
+### Stop Tracking
 
 ```dart
 locationService.stopTracking();
@@ -94,7 +94,7 @@ locationService.stopTracking();
 
 ---
 
-### **Manually Fetch Current Location**
+### Manually Fetch Current Location
 
 ```dart
 await locationService.fetchCurrentLocation();
@@ -114,15 +114,15 @@ print("🏠 Address: ${locationService.placeName.value}");
 | `getPlaceName(lat, lng, {langCode})` | `Future<void>`           | Fetches address for given coordinates in specified language.                                          |
 | `currentLocation`                    | `ValueNotifier<LatLng?>` | Exposes the current latitude/longitude.                                                               |
 | `placeName`                          | `ValueNotifier<String>`  | Exposes the resolved human-readable address.                                                          |
-| `isMobile()`                         | `bool`                   | Returns `true` if running on Android/iOS.                                                             |
+| `_isMobile()`                        | `bool`                   | Returns `true` if running on Android/iOS.                                                             |
 
 ---
 
 ## 🔑 Permissions Setup
 
-### **Android**
+### Android
 
-Add the following to `AndroidManifest.xml`:
+Add the following permissions to `AndroidManifest.xml`:
 
 ```xml
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -130,9 +130,9 @@ Add the following to `AndroidManifest.xml`:
 <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 ```
 
-### **iOS**
+### iOS
 
-Add this in `ios/Runner/Info.plist`:
+Add this to `ios/Runner/Info.plist`:
 
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
@@ -170,7 +170,7 @@ class LocationPage extends StatefulWidget {
 }
 
 class _LocationPageState extends State<LocationPage> {
-  final LocationService locationService = LocationService();
+  final LocationPro locationService = LocationPro();
 
   @override
   void initState() {
@@ -210,8 +210,7 @@ class _LocationPageState extends State<LocationPage> {
                 Text(
                   address.isNotEmpty ? address : "Fetching address...",
                   textAlign: TextAlign.center,
-                  style:
-                      const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ],
             );
@@ -227,11 +226,17 @@ class _LocationPageState extends State<LocationPage> {
 
 ## 👨‍💻 Developed By
 
-<p align="center"> <img src="https://raw.githubusercontent.com/mdabdullahalsiddik/RowScroller/main/assets/mdabdullahalsiddik.jpg" width="120" height="120" style="border-radius:50%" /> </p>  
-<h3 align="center">Md. Abdullah Al Siddik</h3>  
-<p align="center">  
-  <a href="https://github.com/mdabdullahalsiddik"> <img src="https://img.shields.io/badge/GitHub-mdabdullahalsiddik-black?logo=github" /> </a>  
-  <a href="mailto:mdabdullahalsiddik.dev@gmail.com"> <img src="https://img.shields.io/badge/Email-mdabdullahalsiddik.dev%40gmail.com-red?logo=gmail" /> </a>  
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mdabdullahalsiddik/RowScroller/main/assets/mdabdullahalsiddik.jpg" width="120" height="120" style="border-radius:50%" />
+</p>
+<h3 align="center">Md. Abdullah Al Siddik</h3>
+<p align="center">
+  <a href="https://github.com/mdabdullahalsiddik">
+    <img src="https://img.shields.io/badge/GitHub-mdabdullahalsiddik-black?logo=github" />
+  </a>
+  <a href="mailto:mdabdullahalsiddik.dev@gmail.com">
+    <img src="https://img.shields.io/badge/Email-mdabdullahalsiddik.dev%40gmail.com-red?logo=gmail" />
+  </a>
 </p>
 
 ---
@@ -250,3 +255,9 @@ Contributions are welcome!
 ## ❤️ Support
 
 If you like this package, give it a ⭐ on [GitHub](https://github.com/mdabdullahalsiddik) and share it!
+
+---
+
+I can also create a **shorter “One-page Quick Start” version** of this README for GitHub so it’s more readable and beginner-friendly.
+
+Do you want me to do that?
