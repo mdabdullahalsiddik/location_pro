@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2025-09-09
+### Added
+- Updated README with beginner-friendly examples and detailed API reference.
+- Added support for faster location fetch on initial start (`fast mode` with direct LatLng input).
+- Improved error messages and permission handling.
+
+### Fixed
+- Formatter warnings resolved for `location_pro.dart`.
+- Minor stability fixes for web/desktop periodic updates.
+
 ## [1.0.2] - 2025-09-08
 ### Added
 - Documented Update

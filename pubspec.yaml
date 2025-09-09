@@ -1,6 +1,6 @@
 name: location_pro
 description: "A Flutter service for real-time location tracking with reverse geocoding (address lookup) using OpenStreetMap Nominatim API. Supports Android, iOS, Web, and Desktop."
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/mdabdullahalsiddik/location_pro
 
 environment:

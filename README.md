@@ -1,9 +1,10 @@
 
+````markdown
 # Location Pro 📍
 
-A Flutter service for real-time location tracking with real-time address tracking.
+A Flutter service for **real-time location tracking** with **address resolution**.
 
-It also supports direct LatLng input, allowing you to fetch addresses without live GPS, and provides multi-language address support for English, Bangla, Japanese, Chinese, and more.
+It supports **direct LatLng input**, allowing address fetch without live GPS, and provides **multi-language address support** for English, Bangla, Japanese, Chinese, and more.
 
 ---
 
@@ -11,31 +12,31 @@ It also supports direct LatLng input, allowing you to fetch addresses without li
 
 * 📡 Real-time GPS tracking on **mobile**
 * 🌍 Periodic location updates on **web/desktop**
-* 🗺️ Reverse geocoding with **Nominatim API**
-* 🔔 Exposes current **LatLng** & **address** as `ValueNotifier`
+* 🗺️ Reverse geocoding with **OpenStreetMap Nominatim API**
+* 🔔 Exposes **current LatLng** & **address** as `ValueNotifier`
 * 📍 Supports **direct LatLng input**: `startTracking(LatLng)`
 * 🌐 Multi-language address support (English, Bangla, Japanese, Chinese, etc.)
-* 📱 Cross-platform (Android, iOS, Web, Desktop)
+* 📱 Cross-platform: Android, iOS, Web, Desktop
 * 🚦 Automatic **permission handling**
 
 ---
 
 ## 📦 Installation
 
-Add the package to your `pubspec.yaml`:
+Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  location_pro: ^1.0.0
-```
+  location_pro: ^Latest Version
+````
 
-Then run:
+Then fetch packages:
 
 ```bash
 flutter pub get
 ```
 
-Import the service:
+Import in your Dart file:
 
 ```dart
 import 'package:location_pro/location_pro.dart';
@@ -56,12 +57,12 @@ locationService.startTracking();
 // Optional: Track a specific LatLng without live GPS
 // locationService.startTracking(LatLng(23.8103, 90.4125));
 
-// Listen to live location updates
+// Listen to location updates
 locationService.currentLocation.addListener(() {
   print("📍 Current: ${locationService.currentLocation.value}");
 });
 
-// Listen to place name updates
+// Listen to address updates
 locationService.placeName.addListener(() {
   print("🏠 Address: ${locationService.placeName.value}");
 });
@@ -106,15 +107,15 @@ print("🏠 Address: ${locationService.placeName.value}");
 
 ## 📌 API Reference
 
-| Method / Property                    | Type                     | Description                                                                                           |
-| ------------------------------------ | ------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `startTracking([LatLng?])`           | `void`                   | Starts live GPS tracking (mobile) or periodic updates (web/desktop). Can optionally provide a LatLng. |
-| `stopTracking()`                     | `void`                   | Stops tracking & cancels subscriptions.                                                               |
-| `fetchCurrentLocation()`             | `Future<void>`           | Fetches the current location & address once.                                                          |
-| `getPlaceName(lat, lng, {langCode})` | `Future<void>`           | Fetches address for given coordinates in specified language.                                          |
-| `currentLocation`                    | `ValueNotifier<LatLng?>` | Exposes the current latitude/longitude.                                                               |
-| `placeName`                          | `ValueNotifier<String>`  | Exposes the resolved human-readable address.                                                          |
-| `_isMobile()`                        | `bool`                   | Returns `true` if running on Android/iOS.                                                             |
+| Method / Property                    | Type                     | Description                                                                                 |
+| ------------------------------------ | ------------------------ | ------------------------------------------------------------------------------------------- |
+| `startTracking([LatLng?])`           | `void`                   | Start GPS tracking (mobile) or periodic updates (web/desktop). Optionally provide a LatLng. |
+| `stopTracking()`                     | `void`                   | Stop tracking & cancel subscriptions.                                                       |
+| `fetchCurrentLocation()`             | `Future<void>`           | Fetch current location & address once.                                                      |
+| `getPlaceName(lat, lng, {langCode})` | `Future<void>`           | Fetch address for given coordinates in specified language.                                  |
+| `currentLocation`                    | `ValueNotifier<LatLng?>` | Exposes current latitude/longitude.                                                         |
+| `placeName`                          | `ValueNotifier<String>`  | Exposes human-readable address.                                                             |
+| `_isMobile()`                        | `bool`                   | Returns `true` if running on Android/iOS.                                                   |
 
 ---
 
@@ -122,7 +123,7 @@ print("🏠 Address: ${locationService.placeName.value}");
 
 ### Android
 
-Add the following permissions to `AndroidManifest.xml`:
+Add to `AndroidManifest.xml`:
 
 ```xml
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -132,7 +133,7 @@ Add the following permissions to `AndroidManifest.xml`:
 
 ### iOS
 
-Add this to `ios/Runner/Info.plist`:
+Add to `ios/Runner/Info.plist`:
 
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
@@ -241,23 +242,8 @@ class _LocationPageState extends State<LocationPage> {
 
 ---
 
-## 💡 Contributing
-
-Contributions are welcome!
-
-1. Fork the repo
-2. Create your feature branch
-3. Commit your changes
-4. Open a Pull Request
-
----
-
 ## ❤️ Support
 
 If you like this package, give it a ⭐ on [GitHub](https://github.com/mdabdullahalsiddik) and share it!
 
 ---
-
-I can also create a **shorter “One-page Quick Start” version** of this README for GitHub so it’s more readable and beginner-friendly.
-
-Do you want me to do that?
